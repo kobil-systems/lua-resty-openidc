@@ -343,6 +343,12 @@ local function openidc_authorize(opts, session, target_url, prompt)
     state = state,
   }
 
+  -- add the username query parameter when it was passed
+  local q_args = ngx.req.get_uri_args()
+  if q_args.username then
+    params.username = q_args.username
+  end
+  
   if nonce then
     params.nonce = nonce
   end
